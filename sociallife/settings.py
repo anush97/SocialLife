@@ -36,12 +36,13 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'livereload',
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework_simplejwt',
     'rest_framework.authtoken',
     'rest_auth',
-    
+    'user',
 ]
 
 MIDDLEWARE = [
@@ -52,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'livereload.middleware.LiveReloadScript',
 ]
 
 ROOT_URLCONF = 'sociallife.urls'
@@ -74,7 +76,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'sociallife.wsgi.application'
 
-
+import datetime
+JWT_AUTH = {
+    'JWT_VERIFY': True,
+    'JWT_VERIFY_EXPIRATION': True,
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=3000),
+    'JWT_AUTH_HEADER_PREFIX': 'Bearer',
+}
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
@@ -89,7 +97,7 @@ DATABASES = {
 #Rest_Framework
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
     )
 }
 

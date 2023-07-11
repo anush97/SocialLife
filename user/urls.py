@@ -1,5 +1,7 @@
-from django.conf.urls import url, patterns
+from django.urls import path, include , re_path
 from .views import CreateUserAPIView
+app_name = 'user'
+
 urlpatterns = [
-    url(r'^create/$', CreateUserAPIView.as_view()),
+    re_path(r'^create/$', CreateUserAPIView.as_view()),
 ]
